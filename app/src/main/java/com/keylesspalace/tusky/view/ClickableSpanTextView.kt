@@ -40,6 +40,8 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.view.doOnLayout
 import com.keylesspalace.tusky.BuildConfig
 import com.keylesspalace.tusky.R
+import com.keylesspalace.tusky.util.HashTagSpan
+import com.keylesspalace.tusky.util.MentionSpan
 import java.lang.Float.max
 import java.lang.Float.min
 import kotlin.math.abs
@@ -249,7 +251,7 @@ class ClickableSpanTextView @JvmOverloads constructor(
                         it.onClick(this)
                         return true
                     } else {
-                        if (it is URLSpan) {
+                        if (it is URLSpan && it !is MentionSpan && it !is HashTagSpan) {
                             val sendIntent = Intent().apply {
                                 action = Intent.ACTION_SEND
                                 putExtra(Intent.EXTRA_TEXT, it.url)

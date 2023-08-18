@@ -142,7 +142,7 @@ fun getTagName(text: CharSequence, tags: List<HashTag>?): String? {
 
 private fun getCustomSpanForTag(text: CharSequence, tags: List<HashTag>?, span: URLSpan, listener: LinkListener): ClickableSpan? {
     return getTagName(text, tags)?.let {
-        object : NoUnderlineURLSpan(span.url) {
+        object : HashTagSpan(span.url) {
             override fun onClick(view: View) = listener.onViewTag(it)
         }
     }

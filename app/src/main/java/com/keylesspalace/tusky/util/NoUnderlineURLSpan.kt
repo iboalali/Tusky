@@ -42,3 +42,5 @@ open class NoUnderlineURLSpan(val url: String) : URLSpan(url) {
  * Mentions of other users ("@user@example.org")
  */
 open class MentionSpan(url: String) : NoUnderlineURLSpan(url)
+
+open class HashTagSpan(url: String) : NoUnderlineURLSpan(url)
