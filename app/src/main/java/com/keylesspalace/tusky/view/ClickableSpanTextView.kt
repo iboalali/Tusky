@@ -19,6 +19,7 @@ package com.keylesspalace.tusky.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -247,6 +248,18 @@ class ClickableSpanTextView @JvmOverloads constructor(
                     if (duration <= ViewConfiguration.getLongPressTimeout()) {
                         it.onClick(this)
                         return true
+                    } else {
+                        if (it is URLSpan) {
+                            val sendIntent = Intent().apply {
+                                action = Intent.ACTION_SEND
+                                putExtra(Intent.EXTRA_TEXT, it.url)
+                                type = "text/plain"
+                            }
+
+                            val createChooserIntent = Intent.createChooser(sendIntent, context.getString(R.string.open_url_in))
+                            context.startActivity(createChooserIntent)
+                            return true
+                        }
                     }
                 }
                 return super.onTouchEvent(event)
